@@ -1,5 +1,6 @@
 package com.develop.app.ws.controller;
 
+import com.develop.app.ws.model.UserRest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public String getUser(@PathVariable String userId) {
-        return "get user with id " + userId;
+    public UserRest getUser(@PathVariable String userId) {
+        UserRest returnValue = new UserRest();
+        returnValue.setEmail("test@test.com");
+        returnValue.setFirstName("Alesia");
+        returnValue.setLastName("Sherstneva");
+        return returnValue;
     }
 
     @PostMapping
