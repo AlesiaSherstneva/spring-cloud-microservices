@@ -1,6 +1,7 @@
 package com.develop.app.ws.controller;
 
 import com.develop.app.ws.model.UserRest;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,8 @@ public class UserController {
         return "get all users with page = " + page + " and limit = " + limit + " and sort = " + sort;
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping(value = "/{userId}",
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public UserRest getUser(@PathVariable String userId) {
         UserRest returnValue = new UserRest();
         returnValue.setEmail("test@test.com");
