@@ -1,5 +1,6 @@
 package com.develop.app.ws.controller;
 
+import com.develop.app.ws.model.UpdateUserDetails;
 import com.develop.app.ws.model.UserDetails;
 import com.develop.app.ws.model.UserRest;
 import jakarta.validation.Valid;
@@ -61,9 +62,17 @@ public class UserController {
         return new ResponseEntity<>(returnValue, HttpStatus.OK);
     }
 
-    @PutMapping
-    public String updateUser() {
-        return "update user";
+    @PutMapping(value = "/{userId}",
+            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public UserRest updateUser(@PathVariable String userId,
+                             @Valid @RequestBody UpdateUserDetails userDetails) {
+        UserRest storedUserDetails = users.get(userId);
+        storedUserDetails.setFirstName(userDetails.getFirstName());
+        storedUserDetails.setLastName(userDetails.getLastName());
+
+        users.put(userId, storedUserDetails);
+        return storedUserDetails;
     }
 
     @DeleteMapping
