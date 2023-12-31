@@ -23,5 +23,15 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(value = {NullPointerException.class})
+    public ResponseEntity<Object> handleNullPointerException(NullPointerException exception) {
+        String errorMessageDescription = exception.getLocalizedMessage();
 
+        if (errorMessageDescription == null) {
+            errorMessageDescription = exception.toString();
+        }
+
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), errorMessageDescription);
+        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
