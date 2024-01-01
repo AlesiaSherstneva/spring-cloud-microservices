@@ -1,4 +1,4 @@
-package com.develop.app.ws.exceptions;
+package com.develop.app.ws.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

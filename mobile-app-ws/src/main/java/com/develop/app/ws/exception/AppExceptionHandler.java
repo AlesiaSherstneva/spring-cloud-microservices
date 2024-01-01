@@ -1,4 +1,4 @@
-package com.develop.app.ws.exceptions;
+package com.develop.app.ws.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

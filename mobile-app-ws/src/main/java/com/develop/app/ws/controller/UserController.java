@@ -1,6 +1,6 @@
 package com.develop.app.ws.controller;
 
-import com.develop.app.ws.exceptions.UserServiceException;
+import com.develop.app.ws.exception.UserServiceException;
 import com.develop.app.ws.model.UpdateUserDetails;
 import com.develop.app.ws.model.UserDetails;
 import com.develop.app.ws.model.UserRest;
