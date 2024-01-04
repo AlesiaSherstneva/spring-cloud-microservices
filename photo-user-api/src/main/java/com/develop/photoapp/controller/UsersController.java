@@ -2,7 +2,7 @@ package com.develop.photoapp.controller;
 
 import com.develop.photoapp.model.User;
 import com.develop.photoapp.service.UsersService;
-import com.develop.photoapp.shared.UserDTO;
+import com.develop.photoapp.shared.UserDTORequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -30,8 +30,8 @@ public class UsersController {
 
     @PostMapping
     public ResponseEntity<Void> createUser(@Valid @RequestBody User userDetails) {
-        UserDTO userDTO = modelMapper.map(userDetails, UserDTO.class);
-        usersService.createUser(userDTO);
+        UserDTORequest userDTORequest = modelMapper.map(userDetails, UserDTORequest.class);
+        usersService.createUser(userDTORequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

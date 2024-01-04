@@ -1,7 +1,7 @@
 package com.develop.photoapp.service;
 
-import com.develop.photoapp.shared.UserDTO;
+import com.develop.photoapp.shared.UserDTORequest;
 
 public interface UsersService {
-    UserDTO createUser(UserDTO userDetails);
+    UserDTORequest createUser(UserDTORequest userDetails);
 }

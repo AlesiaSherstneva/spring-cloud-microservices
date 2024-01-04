@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class UserDTO implements Serializable {
+public class UserDTORequest implements Serializable {
     @Serial
     private static final long serialVersionUID = 3025186900342435379L;
 

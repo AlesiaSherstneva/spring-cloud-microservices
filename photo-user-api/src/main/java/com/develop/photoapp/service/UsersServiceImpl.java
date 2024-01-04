@@ -2,7 +2,7 @@ package com.develop.photoapp.service;
 
 import com.develop.photoapp.entity.UserEntity;
 import com.develop.photoapp.repository.UsersRepository;
-import com.develop.photoapp.shared.UserDTO;
+import com.develop.photoapp.shared.UserDTORequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class UsersServiceImpl implements UsersService {
     private final ModelMapper modelMapper;
 
     @Override
-    public UserDTO createUser(UserDTO userDetails) {
+    public UserDTORequest createUser(UserDTORequest userDetails) {
         userDetails.setUserId(UUID.randomUUID().toString());
 
         UserEntity userEntity = modelMapper.map(userDetails, UserEntity.class);
