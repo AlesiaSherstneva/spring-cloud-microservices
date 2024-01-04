@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,9 +29,9 @@ public class UsersController {
     }
 
     @PostMapping
-    public String createUser(@Valid @RequestBody User userDetails) {
+    public ResponseEntity<Void> createUser(@Valid @RequestBody User userDetails) {
         UserDTO userDTO = modelMapper.map(userDetails, UserDTO.class);
         usersService.createUser(userDTO);
-        return "Create user method is called";
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
