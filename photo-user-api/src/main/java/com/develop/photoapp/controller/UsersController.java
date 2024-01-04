@@ -6,7 +6,6 @@ import com.develop.photoapp.shared.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +28,7 @@ public class UsersController {
 
     @PostMapping
     public String createUser(@Valid @RequestBody User userDetails) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserDTO userDTO = modelMapper.map(userDetails, UserDTO.class);
-
         usersService.createUser(userDTO);
         return "Create user method is called";
     }
