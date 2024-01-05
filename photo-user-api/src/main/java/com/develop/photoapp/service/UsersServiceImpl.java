@@ -5,9 +5,13 @@ import com.develop.photoapp.repository.UsersRepository;
 import com.develop.photoapp.shared.UserDTORequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -26,5 +30,15 @@ public class UsersServiceImpl implements UsersService {
         usersRepository.save(userEntity);
 
         return modelMapper.map(userEntity, UserDTORequest.class);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity userEntity = usersRepository.findByEmail(email);
+        if (userEntity == null) {
+            throw new UsernameNotFoundException(email);
+        }
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(),
+                true, true, true, true, new ArrayList<>());
     }
 }
