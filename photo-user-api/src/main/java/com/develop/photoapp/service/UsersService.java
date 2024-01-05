@@ -5,4 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UsersService extends UserDetailsService {
     UserDTORequest createUser(UserDTORequest userDetails);
+
+    UserDTORequest getUserDetailsByEmail(String email);
 }
