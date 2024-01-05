@@ -41,8 +41,6 @@ public class WebSecurity {
     }
 
     private AuthenticationFilter getAuthenticationFilter(AuthenticationManager authManager) {
-        AuthenticationFilter filter = new AuthenticationFilter(usersService, environment);
-        filter.setAuthenticationManager(authManager);
-        return filter;
+        return new AuthenticationFilter(authManager, usersService, environment);
     }
 }
