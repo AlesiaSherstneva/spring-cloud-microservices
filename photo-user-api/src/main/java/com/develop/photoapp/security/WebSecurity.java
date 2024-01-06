@@ -41,6 +41,8 @@ public class WebSecurity {
     }
 
     private AuthenticationFilter getAuthenticationFilter(AuthenticationManager authManager) {
-        return new AuthenticationFilter(authManager, usersService, environment);
+        AuthenticationFilter authFilter = new AuthenticationFilter(authManager, usersService, environment);
+        authFilter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
+        return authFilter;
     }
 }
