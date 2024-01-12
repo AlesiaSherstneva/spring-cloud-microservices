@@ -7,4 +7,6 @@ public interface UsersService extends UserDetailsService {
     UserDTORequest createUser(UserDTORequest userDetails);
 
     UserDTORequest getUserDetailsByEmail(String email);
+
+    UserDTORequest getUserByUserId(String userId);
 }
