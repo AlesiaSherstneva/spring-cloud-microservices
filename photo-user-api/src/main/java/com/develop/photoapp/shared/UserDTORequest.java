@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,4 +19,5 @@ public class UserDTORequest implements Serializable {
     private String email;
     private String userId;
     private String encryptedPassword;
+    private List<AlbumDTOResponse> albums;
 }

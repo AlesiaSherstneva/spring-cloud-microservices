@@ -3,6 +3,8 @@ package com.develop.photoapp.shared;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class UserDTOResponse {
@@ -10,4 +12,5 @@ public class UserDTOResponse {
     private String lastName;
     private String email;
     private String userId;
+    private List<AlbumDTOResponse> albums;
 }
