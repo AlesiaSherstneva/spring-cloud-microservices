@@ -5,7 +5,9 @@ import com.develop.photoapp.entity.UserEntity;
 import com.develop.photoapp.repository.UsersRepository;
 import com.develop.photoapp.shared.AlbumDTOResponse;
 import com.develop.photoapp.shared.UserDTORequest;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
     private final ModelMapper modelMapper;
@@ -62,7 +65,12 @@ public class UsersServiceImpl implements UsersService {
         List<AlbumDTOResponse> albums = albumsListResponse.getBody();
         */
 
-        List<AlbumDTOResponse> albums = albumServiceClient.getAlbums(userId);
+        List<AlbumDTOResponse> albums = null;
+        try {
+             albums = albumServiceClient.getAlbums(userId);
+        } catch (FeignException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
 
         UserDTORequest userDTORequest = modelMapper.map(userEntity, UserDTORequest.class);
         userDTORequest.setAlbums(albums);
