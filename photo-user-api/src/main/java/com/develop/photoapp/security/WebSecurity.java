@@ -35,8 +35,10 @@ public class WebSecurity {
                 .authenticationManager(authManager)
                 .addFilter(getAuthenticationFilter(authManager))
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/users/**", "/h2-console/**", "/actuator/**")
-                        .permitAll())
+                        .requestMatchers("/users/**", "/h2-console/**", "/actuator/**", "/error")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .build();
     }
 
