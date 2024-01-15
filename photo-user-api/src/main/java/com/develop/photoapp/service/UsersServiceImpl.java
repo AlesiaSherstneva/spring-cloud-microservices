@@ -71,7 +71,9 @@ public class UsersServiceImpl implements UsersService {
         }
         */
 
+        log.info("Before calling albums microservice");
         List<AlbumDTOResponse> albums = albumServiceClient.getAlbums(userId);
+        log.info("After calling albums microservice");
 
         UserDTORequest userDTORequest = modelMapper.map(userEntity, UserDTORequest.class);
         userDTORequest.setAlbums(albums);
