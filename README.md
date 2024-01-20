@@ -1,8 +1,47 @@
 # spring-cloud-with-microservices
 
-По работе мне сейчас нужно срочно осваивать Spring Cloud :face_in_clouds: Поэтому я пока поставила на паузу те три курса, 
-которые понемногу проходила в последнее время, в пользу курса 
-[Spring Boot Microservices and Spring Cloud. Build & Deploy](https://www.udemy.com/course/spring-boot-microservices-and-spring-cloud/),
-который я прохожу максимально быстро.
+По работе мне пришлось срочно осваивать Spring Cloud :face_in_clouds: Поэтому я максимально оперативно прошла курс 
+[Spring Boot Microservices and Spring Cloud. Build & Deploy](https://www.udemy.com/course/spring-boot-microservices-and-spring-cloud/).
 
-Следующий на очереди будет курс по Spring Reactive, тоже по работе требуется :face_with_spiral_eyes:
+---
+
+Кластер состоит из пяти модулей:
+
+`photo-config-server` - сервер конфигураций. Загружает данные конфигураций как общие для всех микросервисов
+(application.properties), так и персональные для отдельного микросервиса (discoveryservice.properties,
+users-ws.properties).
+
+`photo-discovery-service` - сервер регистраций Eureka. Этот микросервис ведёт учёт микросервисов в кластере
+и предоставляет адрес нужного микросервиса по требованию. Также проверяет состоящие на учёте микросервисы на 
+готовность к работе. Включает в себя Load Balancer, распределяющий нагрузку между несколькими экземплярами
+одного и того же микросервиса.
+
+`api-gateway` - общий шлюз для всех запросов от клиентских приложений. Адреса для запросов фиксируются в настройках
+шлюза и не зависят от внутренних изменений остальных микросервисов. При выполнении запроса, требующего авторизации,
+проверяет валидность передаваемого JWT-токена.
+
+`photo-user-api` - основной рабочий микросервис. Включает в себя три рабочих эндпоинта:
+- `@GetMapping(/users/status/check)` - проверка работоспособности сервиса, работает без регистрации;
+- `@PostMapping(/users)` - регистрация пользователя, выдача JWT-токена через header;
+- `@GetMapping(/users/{userId})` - получение данных о пользователе и его альбомах. Требуется регистрация.
+
+`photo-albums-api` - вспомогательный микросервис. Выдаёт список альбомов пользователя в `photo-user-api` через 
+FeignClient (hardcoded ArrayList, один и тот же для всех :slightly_smiling_face:).
+
+---
+
+Запускать кластер нужно в следующем порядке:
+
+`photo-config-server`->`photo-discovery-service`->`api-gateway`->`photo-user-api`->`photo-albums-api`
+
+Прежде, чем запускать каждый следующий сервис, нужно дождаться полного старта предыдущего.
+
+---
+
+Также в курсе разбирались другие темы, которые сложно показать через репозиторий: H2 in-memory DB,
+Spring Cloud Bus (RabbitMQ), Spring Boot Actuator, Feign client, Sleuth-Zipkin tracing, ELK stack и т.д.
+
+Есть целый раздел, посвящённый упаковке каждого микросервиса в Dockerfile и деплою всего кластера на AWS.
+Но, увы, его я просто просмотрела, не повторяла. Спасибо санкциям :slightly_frowning_face:
+
+Курс однозначно рекомендую, он стоит своих денег :+1:
